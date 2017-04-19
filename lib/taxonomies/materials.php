@@ -1,5 +1,13 @@
 <?php
+/**
+ * Functions relative to the materials taxonomy.
+ *
+ * @package DIY-time-and-materials/
+ */
 
+/**
+ * The materials_init function registers the materials taxonomy within WordPress.
+ */
 function materials_init() {
 	register_taxonomy( 'materials', array( 'post' ), array(
 		'hierarchical'      => false,
@@ -13,7 +21,7 @@ function materials_init() {
 			'manage_terms'  => 'edit_posts',
 			'edit_terms'    => 'edit_posts',
 			'delete_terms'  => 'edit_posts',
-			'assign_terms'  => 'edit_posts'
+			'assign_terms'  => 'edit_posts',
 		),
 		'labels'            => array(
 			'name'                       => __( 'Materials Costs', 'diy-time-and-materials' ),

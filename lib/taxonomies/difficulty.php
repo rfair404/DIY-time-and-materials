@@ -1,5 +1,13 @@
 <?php
+/**
+ * Functions relative to the difficulty taxonomy.
+ *
+ * @package DIY-time-and-materials/
+ */
 
+/**
+ * The difficulty_init function registers the difficult taxonomy within WordPress.
+ */
 function difficulty_init() {
 	register_taxonomy( 'difficulty', array( 'post' ), array(
 		'hierarchical'      => false,
@@ -13,7 +21,7 @@ function difficulty_init() {
 			'manage_terms'  => 'edit_posts',
 			'edit_terms'    => 'edit_posts',
 			'delete_terms'  => 'edit_posts',
-			'assign_terms'  => 'edit_posts'
+			'assign_terms'  => 'edit_posts',
 		),
 		'labels'            => array(
 			'name'                       => __( 'Difficulty Ratings', 'diy-time-and-materials' ),

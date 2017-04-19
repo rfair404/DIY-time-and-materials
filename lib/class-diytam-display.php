@@ -6,6 +6,11 @@
  * @package DIY-time-and-materials
  */
 
+/**
+ * Front End Functionality.
+ *
+ * @since 0.1-alpha
+ */
 class DIYTAM_Display {
 
 }

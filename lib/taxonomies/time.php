@@ -1,5 +1,13 @@
 <?php
+/**
+ * Functions relative to the time taxonomy.
+ *
+ * @package DIY-time-and-materials/
+ */
 
+/**
+ * The time_init function registers the time taxonomy within WordPress.
+ */
 function time_init() {
 	register_taxonomy( 'time', array( 'post' ), array(
 		'hierarchical'      => false,
@@ -13,7 +21,7 @@ function time_init() {
 			'manage_terms'  => 'edit_posts',
 			'edit_terms'    => 'edit_posts',
 			'delete_terms'  => 'edit_posts',
-			'assign_terms'  => 'edit_posts'
+			'assign_terms'  => 'edit_posts',
 		),
 		'labels'            => array(
 			'name'                       => __( 'Time Requireds', 'diy-time-and-materials' ),

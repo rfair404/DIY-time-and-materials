@@ -19,6 +19,9 @@
  */
 function diy_time_and_materials_load() {
 	// Load the base class.
+	require_once( 'lib/class-diytam-base.php' );
+	require_once( 'lib/class-diytam-common.php' );
+
 	// Then load extension classes by context.
 }
 add_action( 'plugins_loaded', 'diy_time_and_materials_load' );

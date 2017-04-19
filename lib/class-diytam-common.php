@@ -6,6 +6,11 @@
  * @package DIY-time-and-materials
  */
 
-class DIYTAM_Common {
+/**
+ * Common functionality.
+ *
+ * @since 0.1-alpha
+ */
+class DIYTAM_Common extends DIYTAM_Base {
 
 }
