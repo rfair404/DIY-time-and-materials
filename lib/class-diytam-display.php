@@ -108,7 +108,14 @@ class DIYTAM_Display extends DIYTAM_Common {
 	 * @return string $content the new content.
 	 */
 	function display_content( $content = false ) {
-        
-		return $content;
+		$taxonomies = self::get_taxonomy_list();
+		$return_content = '';
+
+		foreach ( $taxonomies as $taxonomy ) {
+			if ( self::has_terms( $taxonomy ) ) {
+				$return_content .= self::list_terms( $taxonomy );
+			}
+		}
+		return $return_content . $content;
 	}
 }

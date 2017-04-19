@@ -14,6 +14,13 @@
 class DIYTAM_Common extends DIYTAM_Base {
 
 	/**
+	 * Array of taxonomies created by this plugin
+	 *
+	 * @var array $taxonomies the taxonomies created by the plugin.
+	 */
+	private $taxonomies = array( 'difficulty', 'time', 'materials' );
+
+	/**
 	 * Registers all actions with WordPress
 	 *
 	 * @since 0.1-alpha
@@ -23,9 +30,14 @@ class DIYTAM_Common extends DIYTAM_Base {
 		add_action( 'init', array( $this, 'materials_init' ), 10 );
 		add_action( 'init', array( $this, 'time_init' ), 10 );
 	}
-	
+
+	/**
+	 * Returns the list of taxonomies created in the plugin.
+	 *
+	 * @since 0.1-alpha
+	 */
 	public function get_taxonomy_list() {
-		return array( 'difficulty', 'time', 'materials' );
+		return $this->taxonomies;
 	}
 
 	/**

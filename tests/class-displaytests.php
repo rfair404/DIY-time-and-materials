@@ -198,9 +198,8 @@ class DisplayTests extends WP_UnitTestCase {
 		$content = $this->display->list_terms( 'materials' );
 		$this->assertEquals( '<span class="diy-tam diy-tam-materials">Materials: hot glue</span>', $content );
 	}
-	
-	// add a test for multiple terms!
 
+	// add a test for multiple terms!
 	/**
 	 * Test that the display_terms function returns a list when terms are set
 	 */
@@ -217,9 +216,8 @@ class DisplayTests extends WP_UnitTestCase {
 		$this->go_to( get_permalink( $post ) );
 
 		$term_markup_before = $this->display->list_terms( 'difficulty' );
-		
-		$this->assertEquals( '<span class="diy-tam diy-tam-difficulty">Difficulty: easy</span>', $term_markup_before );
 
+		$this->assertEquals( '<span class="diy-tam diy-tam-difficulty">Difficulty: easy</span>', $term_markup_before );
 
 		$content = $this->display->display_content( $test_post_content );
 		$this->assertEquals( $term_markup_before . $test_post_content, $content );
