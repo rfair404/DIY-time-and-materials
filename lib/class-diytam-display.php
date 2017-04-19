@@ -11,6 +11,6 @@
  *
  * @since 0.1-alpha
  */
-class DIYTAM_Display {
+class DIYTAM_Display extends DIYTAM_Base {
 
 }

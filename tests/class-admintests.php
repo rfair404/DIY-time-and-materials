@@ -23,7 +23,6 @@ class AdminTests extends WP_UnitTestCase {
 	 * Test that the admin class is an instance of base.
 	 */
 	function test_admin_extends_base() {
-		$common = new DIYTAM_Common;
 		$this->assertEquals( 'DIYTAM_Base', get_parent_class( 'DIYTAM_Admin' ) );
 	}
 
@@ -31,19 +30,19 @@ class AdminTests extends WP_UnitTestCase {
 	 * Test that the admin get version returns parent ver version.
 	 */
 	function test_admin_get_version() {
-		// Test that common get version returns the base version.
-		// $base = new DIYTAM_Base;
-		// $admin = new DIYTAM_Admin;
-		// $this->assertEquals( $base->version, $admin->get_version() );
+		// Test that admin get version returns the base version.
+		$base = new DIYTAM_Base;
+		$admin = new DIYTAM_Admin;
+		$this->assertEquals( $base->version, $admin->get_version() );
 	}
 
 	/**
 	 * Test that the admin get textdomain works.
 	 */
 	function test_admin_get_textdomain() {
-		// Test that common get version returns the same as the base version.
-		// $base = new DIYTAM_Base;
-		// $admin = new DIYTAM_Admin;
-		// $this->assertEquals( $base->textdomain, $admin->get_textdomain() );
+		// Test that admin get version returns the same as the base version.
+		$base = new DIYTAM_Base;
+		$admin = new DIYTAM_Admin;
+		$this->assertEquals( $base->textdomain, $admin->get_textdomain() );
 	}
 }
