@@ -252,7 +252,18 @@ class DisplayTests extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Tests if the css adds the custom color
+	 * Tests if the css custom color is over-ridable by filter
+	 */
+	function test_display_print_css_override_color_with_filter() {
+		update_option( 'diy_tam_color', '#f5f5f5' );
+		add_filter( 'diy_tam_color', function() {
+			return '#444444';
+		}, 10);
+		$this->assertRegExp( '/color:#444444;/' , $this->display->print_css( true ) );
+	}
+
+	/**
+	 * Tests if the css custom color is set by option
 	 */
 	function test_display_print_css_includes_color_if_set() {
 		update_option( 'diy_tam_color', '#f5f5f5' );
