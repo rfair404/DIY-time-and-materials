@@ -11,7 +11,7 @@
  *
  * @since 0.1-alpha
  */
-class DIYTAM_Display extends DIYTAM_Base {
+class DIYTAM_Display extends DIYTAM_Common {
 	/**
 	 * Initializes the other class functions
 	 * Adds actions and filters to WordPress api.
@@ -101,13 +101,14 @@ class DIYTAM_Display extends DIYTAM_Base {
 	}
 
 	/**
-	 * Function checks if there are terms associated with a taxonomy.
+	 * Function displays the content, with terms if they exist.
 	 *
 	 * @since 0.1-alpha
 	 * @param string $content the post content.
 	 * @return string $content the new content.
 	 */
 	function display_content( $content = false ) {
+        
 		return $content;
 	}
 }

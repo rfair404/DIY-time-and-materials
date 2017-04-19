@@ -28,7 +28,7 @@ class DisplayTests extends WP_UnitTestCase {
 	 * Test that the display class is an instance of base.
 	 */
 	function test_display_extends_base() {
-		$this->assertEquals( 'DIYTAM_Base', get_parent_class( 'DIYTAM_Display' ) );
+		$this->assertEquals( 'DIYTAM_Common', get_parent_class( 'DIYTAM_Display' ) );
 	}
 
 	/**
@@ -174,9 +174,9 @@ class DisplayTests extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test if spans are output when terms are set.
+	 * Test if spans are output when a term is set.
 	 */
-	function test_display_list_terms_prints_spans_for_terms_if_set() {
+	function test_display_list_terms_prints_spans_for_single_term_if_set() {
 		$post = wp_insert_post( array(
 			'post_title'    => 'test post with one term',
 			'post_status'   => 'publish',
@@ -198,11 +198,13 @@ class DisplayTests extends WP_UnitTestCase {
 		$content = $this->display->list_terms( 'materials' );
 		$this->assertEquals( '<span class="diy-tam diy-tam-materials">Materials: hot glue</span>', $content );
 	}
+	
+	// add a test for multiple terms!
 
 	/**
 	 * Test that the display_terms function returns a list when terms are set
 	 */
-	function test_display_terms_shows_terms_if_has_terms() {
+	function test_display_terms_shows_terms_before_content() {
 		$test_post_content = 'example with terms.';
 		$post = wp_insert_post( array(
 			'post_title'    => 'test post with terms',
@@ -212,7 +214,14 @@ class DisplayTests extends WP_UnitTestCase {
 		) );
 
 		wp_set_object_terms( $post, 'easy', 'difficulty' );
+		$this->go_to( get_permalink( $post ) );
+
+		$term_markup_before = $this->display->list_terms( 'difficulty' );
+		
+		$this->assertEquals( '<span class="diy-tam diy-tam-difficulty">Difficulty: easy</span>', $term_markup_before );
+
+
 		$content = $this->display->display_content( $test_post_content );
-		$this->assertEquals( $test_post_content, $content );
+		$this->assertEquals( $term_markup_before . $test_post_content, $content );
 	}
 }

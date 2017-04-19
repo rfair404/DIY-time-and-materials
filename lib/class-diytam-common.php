@@ -18,10 +18,14 @@ class DIYTAM_Common extends DIYTAM_Base {
 	 *
 	 * @since 0.1-alpha
 	 */
-	function init() {
+	public function init() {
 		add_action( 'init', array( $this, 'difficulty_init' ), 10 );
 		add_action( 'init', array( $this, 'materials_init' ), 10 );
 		add_action( 'init', array( $this, 'time_init' ), 10 );
+	}
+	
+	public function get_taxonomy_list() {
+		return array( 'difficulty', 'time', 'materials' );
 	}
 
 	/**
@@ -29,7 +33,7 @@ class DIYTAM_Common extends DIYTAM_Base {
 	 *
 	 * @since 0.1-alpha
 	 */
-	function difficulty_init() {
+	public function difficulty_init() {
 		register_taxonomy( 'difficulty', array( 'post' ), array(
 			'hierarchical'      => false,
 			'public'            => true,
@@ -73,7 +77,7 @@ class DIYTAM_Common extends DIYTAM_Base {
 	 *
 	 @since 0.1-alpha
 	 */
-	function materials_init() {
+	public function materials_init() {
 		register_taxonomy( 'materials', array( 'post' ), array(
 			'hierarchical'      => false,
 			'public'            => true,
@@ -118,7 +122,7 @@ class DIYTAM_Common extends DIYTAM_Base {
 	 *
 	 @since 0.1-alpha
 	 */
-	function time_init() {
+	public function time_init() {
 		register_taxonomy( 'time', array( 'post' ), array(
 			'hierarchical'      => false,
 			'public'            => true,

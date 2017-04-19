@@ -65,4 +65,11 @@ class CommonTests extends WP_UnitTestCase {
 		$this->assertTrue( array_key_exists( 'time', $taxes ) );
 		$this->assertTrue( array_key_exists( 'materials', $taxes ) );
 	}
+	
+	/** 
+	 * Tests that the common class get_taxonomy_list returns array of all the registered taxonomies
+	 */
+	 function test_common_get_taxonomy_list_returns_array() {
+	 	$this->assertTrue( 3 === count( $this->common->get_taxonomy_list() ) );
+	 }
 }

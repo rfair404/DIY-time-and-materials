@@ -26,7 +26,7 @@ class AdminTests extends WP_UnitTestCase {
 	 * Test that the admin class is an instance of base.
 	 */
 	function test_admin_extends_base() {
-		$this->assertEquals( 'DIYTAM_Base', get_parent_class( 'DIYTAM_Admin' ) );
+		$this->assertEquals( 'DIYTAM_Common', get_parent_class( 'DIYTAM_Admin' ) );
 	}
 
 	/**

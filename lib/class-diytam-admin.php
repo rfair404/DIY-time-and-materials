@@ -11,6 +11,6 @@
  *
  * @since 0.1-alpha
  */
-class DIYTAM_Admin extends DIYTAM_Base {
+class DIYTAM_Admin extends DIYTAM_Common {
 
 }
