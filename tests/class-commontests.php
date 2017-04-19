@@ -45,16 +45,16 @@ class CommonTests extends WP_UnitTestCase {
 		// Test that common get version returns the same as the base version.
 		$this->assertEquals( $this->base->textdomain, $this->common->get_textdomain() );
 	}
-	
+
 	/**
 	 * Test that the common registers custom taxonomies.
 	 */
 	function test_common_init_hooks_registration_functions() {
-		$this->assertEquals( 10, has_action('init', array( $this->common , 'difficulty_init') ) );
-		$this->assertEquals( 10, has_action('init', array( $this->common , 'materials_init') ) );
-		$this->assertEquals( 10, has_action('init', array( $this->common , 'time_init') ) );
+		$this->assertEquals( 10, has_action( 'init', array( $this->common, 'difficulty_init' ) ) );
+		$this->assertEquals( 10, has_action( 'init', array( $this->common, 'materials_init' ) ) );
+		$this->assertEquals( 10, has_action( 'init', array( $this->common, 'time_init' ) ) );
 	}
-	
+
 	/**
 	 * Test that the taxonomies are actually registered
 	 */
@@ -64,6 +64,5 @@ class CommonTests extends WP_UnitTestCase {
 		$this->assertTrue( array_key_exists( 'difficulty', $taxes ) );
 		$this->assertTrue( array_key_exists( 'time', $taxes ) );
 		$this->assertTrue( array_key_exists( 'materials', $taxes ) );
-
 	}
 }

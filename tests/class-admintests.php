@@ -20,8 +20,6 @@ class AdminTests extends WP_UnitTestCase {
 		$this->base = new DIYTAM_Base;
 		// Envoke the admin class.
 		$this->admin = new DIYTAM_Admin;
-		// Initialize the admin class constructor.
-		// $this->admin->init();
 	}
 
 	/**
