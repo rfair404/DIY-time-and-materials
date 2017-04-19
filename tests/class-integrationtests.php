@@ -14,17 +14,17 @@ class IntegrationTests extends WP_UnitTestCase {
 	 */
 	public function setUp() {
 		parent::setUp();
-		require_once( dirname( dirname( __FILE__ ) ) . '/lib/class-base.php' );
+		require_once( dirname( dirname( __FILE__ ) ) . '/diy-time-and-materials.php' );
 	}
 	/**
 	 * Test that the core plugin classes files exist.
 	 */
 	function test_core_class_files_exist() {
 		// Test that the custom class files exist in the plugin.
-		$this->assertFileExists( dirname( dirname( __FILE__ ) ) . '/lib/class-base.php' );
-		$this->assertFileExists( dirname( dirname( __FILE__ ) ) . '/lib/class-common.php' );
-		$this->assertFileExists( dirname( dirname( __FILE__ ) ) . '/lib/class-display.php' );
-		$this->assertFileExists( dirname( dirname( __FILE__ ) ) . '/lib/class-admin.php' );
+		$this->assertFileExists( dirname( dirname( __FILE__ ) ) . '/lib/class-DIYTAM_Base.php' );
+		$this->assertFileExists( dirname( dirname( __FILE__ ) ) . '/lib/class-DIYTAM_Common.php' );
+		$this->assertFileExists( dirname( dirname( __FILE__ ) ) . '/lib/class-DIYTAM_Display.php' );
+		$this->assertFileExists( dirname( dirname( __FILE__ ) ) . '/lib/class-DIYTAM_Admin.php' );
 	}
 
 	/**
