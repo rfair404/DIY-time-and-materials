@@ -16,7 +16,12 @@ class AdminTests extends WP_UnitTestCase {
 		parent::setUp();
 		require_once( dirname( dirname( __FILE__ ) ) . '/diy-time-and-materials.php' );
 		require_once( dirname( dirname( __FILE__ ) ) . '/lib/class-diytam-admin.php' );
-
+		// Envoke the base class.
+		$this->base = new DIYTAM_Base;
+		// Envoke the admin class.
+		$this->admin = new DIYTAM_Admin;
+		// Initialize the admin class constructor.
+		// $this->admin->init();
 	}
 
 	/**
@@ -31,9 +36,7 @@ class AdminTests extends WP_UnitTestCase {
 	 */
 	function test_admin_get_version() {
 		// Test that admin get version returns the base version.
-		$base = new DIYTAM_Base;
-		$admin = new DIYTAM_Admin;
-		$this->assertEquals( $base->version, $admin->get_version() );
+		$this->assertEquals( $this->base->version, $this->admin->get_version() );
 	}
 
 	/**
@@ -41,8 +44,6 @@ class AdminTests extends WP_UnitTestCase {
 	 */
 	function test_admin_get_textdomain() {
 		// Test that admin get version returns the same as the base version.
-		$base = new DIYTAM_Base;
-		$admin = new DIYTAM_Admin;
-		$this->assertEquals( $base->textdomain, $admin->get_textdomain() );
+		$this->assertEquals( $this->base->textdomain, $this->admin->get_textdomain() );
 	}
 }

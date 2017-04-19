@@ -15,6 +15,7 @@ class BaseTests extends WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 		require_once( dirname( dirname( __FILE__ ) ) . '/diy-time-and-materials.php' );
+		$this->base = new DIYTAM_Base;
 	}
 
 	/**
@@ -31,8 +32,7 @@ class BaseTests extends WP_UnitTestCase {
 	 */
 	function test_base_get_version() {
 		// Test that the get version returns the same as the version.
-		$base = new DIYTAM_Base;
-		$this->assertEquals( $base->version, $base->get_version() );
+		$this->assertEquals( $this->base->version, $this->base->get_version() );
 	}
 
 	/**
@@ -40,7 +40,6 @@ class BaseTests extends WP_UnitTestCase {
 	 */
 	function test_base_get_textdomain() {
 		// Test that the get version returns the same as the version.
-		$base = new DIYTAM_Base;
-		$this->assertEquals( $base->textdomain, $base->get_textdomain() );
+		$this->assertEquals( $this->base->textdomain, $this->base->get_textdomain() );
 	}
 }
