@@ -1,8 +1,9 @@
+/** Grunt file for file automation */
 module.exports = function( grunt ) {
 
 	'use strict';
 	var banner = '/**\n * <%= pkg.homepage %>\n * Copyright (c) <%= grunt.template.today("yyyy") %>\n * This file is generated automatically. Do not edit.\n */\n';
-	// Project configuration
+	// Project configuration.
 	grunt.initConfig( {
 
 		pkg: grunt.file.readJSON( 'package.json' ),
