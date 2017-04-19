@@ -222,4 +222,32 @@ class DisplayTests extends WP_UnitTestCase {
 		$content = $this->display->display_content( $test_post_content );
 		$this->assertEquals( $term_markup_before . $test_post_content, $content );
 	}
+	/**
+	 * Tests if the output css is added.
+	 */
+	function test_display_terms_outputs_css_inline() {
+		$this->assertEquals( 10, has_action( 'wp_print_scripts', array( $this->display, 'print_css' ) ) );
+	}
+	/**
+	 * Tests if the output css includes style tags.
+	 */
+	function test_display_print_css_outputs_css() {
+		$this->assertRegExp( '/<style type="text\/css">/' , $this->display->print_css( true ) );
+		$this->assertRegExp( '/<\/style>/' , $this->display->print_css( true ) );
+	}
+
+	/**
+	 * Tests if the color filter works
+	 */
+	function test_display_get_color_returns_false_if_not_set() {
+		$this->assertFalse( $this->display->get_color() );
+	}
+
+	/**
+	 * Tests if the color filter works
+	 */
+	function test_display_get_color_returns_color_if_set() {
+		update_option( 'diy-tam-color', '#f5f5f5' );
+		$this->assertEquals( '#f5f5f5', $this->display->get_color() );
+	}
 }

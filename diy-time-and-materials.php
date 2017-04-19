@@ -24,13 +24,14 @@ function diy_time_and_materials_load() {
 
 	$common = new DIYTAM_Common;
 	$common->init();
-	
-	if( is_admin() ) {
+
+	if ( is_admin() ) {
+		// Administrative pages get admin.
 		require_once( 'lib/class-diytam-admin.php' );
 		$admin = new DIYTAM_Admin;
 		$admin->init();
 	} else {
-		// not admin
+		// Not admin pages get display.
 		require_once( 'lib/class-diytam-display.php' );
 		$display = new DIYTAM_Display;
 		$display->init();

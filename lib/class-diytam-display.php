@@ -20,6 +20,7 @@ class DIYTAM_Display extends DIYTAM_Common {
 	 */
 	public function init() {
 		add_filter( 'the_content', array( $this, 'display_content' ), 10 );
+		add_action( 'wp_print_scripts', array( $this, 'print_css' ), 10 );
 	}
 
 	/**
@@ -117,5 +118,42 @@ class DIYTAM_Display extends DIYTAM_Common {
 			}
 		}
 		return $return_content . $content;
+	}
+
+	/**
+	 * Prints the css for the terms
+	 *
+	 * @since 0.1-alpha
+	 * @param bool $return if the function should return or echo the output.
+	 */
+	function print_css( $return = false ) {
+		$custom_color = self::get_color();
+
+		$inline_css = '<style type="text/css">';
+		$inline_css .= '.diy-tam{';
+
+		if ( $custom_color ) {
+			$inline_css .= "color:$custom_color;";
+		}
+
+			$inline_css .= 'display:inline-block;';
+			$inline_css .= 'margin-right:1em;';
+			$inline_css .= 'margin-right:1em;';
+		$inline_css .= '}';
+		$inline_css .= '</style>';
+		if ( true === $return ) {
+			return esc_html( $inline_css );
+		} else {
+			echo esc_html( $inline_css );
+		}
+	}
+
+	/**
+	 * Gets the color for the terms
+	 *
+	 * @since 0.1-alpha
+	 */
+	function get_color() {
+		return apply_filters( 'diy_tam_color', get_option( 'diy_tam_color' ) );
 	}
 }
