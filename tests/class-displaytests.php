@@ -247,7 +247,18 @@ class DisplayTests extends WP_UnitTestCase {
 	 * Tests if the color filter works
 	 */
 	function test_display_get_color_returns_color_if_set() {
-		update_option( 'diy-tam-color', '#f5f5f5' );
+		update_option( 'diy_tam_color', '#f5f5f5' );
 		$this->assertEquals( '#f5f5f5', $this->display->get_color() );
+	}
+
+	/**
+	 * Tests if the css adds the custom color
+	 */
+	function test_display_print_css_includes_color_if_set() {
+		update_option( 'diy_tam_color', '#f5f5f5' );
+		$this->assertRegExp( '/color:#f5f5f5;/' , $this->display->print_css( true ) );
+
+		delete_option( 'diy_tam_color' );
+		$this->assertNotRegExp( '/color:/' , $this->display->print_css( true ) );
 	}
 }

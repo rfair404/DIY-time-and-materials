@@ -129,22 +129,22 @@ class DIYTAM_Display extends DIYTAM_Common {
 	function print_css( $return = false ) {
 		$custom_color = self::get_color();
 
-		$inline_css = '<style type="text/css">';
-		$inline_css .= '.diy-tam{';
+		$inline_css = '.diy-tam{';
 
 		if ( $custom_color ) {
-			$inline_css .= "color:$custom_color;";
+			$inline_css .= sprintf( 'color:%s;', esc_attr( $custom_color ) );
 		}
 
-			$inline_css .= 'display:inline-block;';
-			$inline_css .= 'margin-right:1em;';
-			$inline_css .= 'margin-right:1em;';
+		$inline_css .= 'display:inline-block;';
+		$inline_css .= 'margin-right:1em;';
+		$inline_css .= 'margin-right:1em;';
+
 		$inline_css .= '}';
-		$inline_css .= '</style>';
+
 		if ( true === $return ) {
-			return esc_html( $inline_css );
+			return sprintf( '<style type="text/css">%s</style>', esc_html( $inline_css ) );
 		} else {
-			echo esc_html( $inline_css );
+			printf( '<style type="text/css">%s</style>', esc_html( $inline_css ) );
 		}
 	}
 
