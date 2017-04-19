@@ -23,6 +23,7 @@ class DIYTAM_Common extends DIYTAM_Base {
         add_action( 'init', array( $this, 'materials_init' ), 10 );
         add_action( 'init', array( $this, 'time_init' ), 10 );
     }
+
     /**
      * The difficulty_init function registers the difficult taxonomy within WordPress.
      * 
@@ -66,6 +67,7 @@ class DIYTAM_Common extends DIYTAM_Base {
     		'rest_controller_class' => 'WP_REST_Terms_Controller',
     	) );
     }
+
     /**
      * The materials_init function registers the materials taxonomy within WordPress.
      * 
