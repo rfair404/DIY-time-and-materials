@@ -50,7 +50,13 @@ class CommonTests extends WP_UnitTestCase {
 	 * Test that the common registers custom taxonomies.
 	 */
 	function test_common_registers_taxonomies() {
-		$this->assertEquals( 10, has_action( 'init', array( 'DIYTAM_Common', 'difficulty_init' ) ) );
+		$this->assertEquals( 10, has_action('init', array( $this->common , 'difficulty_init') ) );
+		$this->assertEquals( 10, has_action('init', array( $this->common , 'materials_init') ) );
+		$this->assertEquals( 10, has_action('init', array( $this->common , 'time_init') ) );
+
+		
+		
+		// $this->assertEquals( 10, has_action( 'init', array( 'DIYTAM_Common', 'difficulty_init' ) ) );
 		
 		// $taxes = get_taxonomies( array(), 'array' );
 		

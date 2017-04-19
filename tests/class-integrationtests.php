@@ -28,16 +28,6 @@ class IntegrationTests extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test that the required taxonomy registration files exist.
-	 */
-	function test_taxonomy_files_exist() {
-		// Test that the taxonomy files exist in the plugin.
-		$this->assertFileExists( dirname( dirname( __FILE__ ) ) . '/lib/taxonomies/difficulty.php' );
-		$this->assertFileExists( dirname( dirname( __FILE__ ) ) . '/lib/taxonomies/time.php' );
-		$this->assertFileExists( dirname( dirname( __FILE__ ) ) . '/lib/taxonomies/materials.php' );
-	}
-
-	/**
 	 * Test that the core plugin classes exist.
 	 */
 	function test_core_classes_exist() {
