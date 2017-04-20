@@ -6,6 +6,8 @@
  * @package DIY-time-and-materials
  */
 
+if ( ! defined( 'ABSPATH' ) ) { exit(); }
+
 /**
  * The base class, contains helper functions used everywhere.
  *

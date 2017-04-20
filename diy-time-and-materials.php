@@ -11,6 +11,14 @@
  * @package DIY-time-and-materials/
  */
 
+if ( ! defined( 'ABSPATH' ) ) { exit(); }
+
+global $wp_version;
+if ( version_compare( PHP_VERSION, '5.3', '<' ) || version_compare( $wp_version, '4.7', '<' ) ) {
+	exit(
+		sprintf( 'This plug-in requires PHP 5.3 or higher and WordPress version 4.7 or higher. You\'re current PHP version is %1$s and WordPress version is %2$s', esc_html( PHP_VERSION ), esc_html( $wp_version ) )
+	);
+}
 /**
  * Function diy_time_and_materials_load loads required files
  *
