@@ -26,7 +26,8 @@ phpunit
 ### Filters
 A number of filters exist to make customizing the display of the taxonomy data easy.
 * `diy_tam_color` a filter to over-ride the color of the taxonomy terms.
-
-
+* `diy_tam_taxonomy_name_difficulty` a filter to over-ride the "Difficulty" Taxonomy name (frontend only)
+* `diy_tam_taxonomy_name_time` a filter to over-ride the "Time" Taxonomy name (frontend only)
+* `diy_tam_taxonomy_name_materials` a filter to over-ride the "Materials" Taxonomy name (frontend only)
 
 

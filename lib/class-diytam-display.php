@@ -12,6 +12,14 @@
  * @since 0.1-alpha
  */
 class DIYTAM_Display extends DIYTAM_Common {
+
+	/**
+	 * The Scripts enqueued.
+	 *
+	 * @var array $scripts
+	 */
+	public $scripts;
+
 	/**
 	 * Initializes the other class functions
 	 * Adds actions and filters to WordPress api.
@@ -21,6 +29,7 @@ class DIYTAM_Display extends DIYTAM_Common {
 	public function init() {
 		add_filter( 'the_content', array( $this, 'display_content' ), 10 );
 		add_action( 'wp_print_scripts', array( $this, 'print_css' ), 10 );
+		add_action( 'wp_print_scripts', array( $this, 'enqueue_scripts' ), 10 );
 	}
 
 	/**
@@ -83,7 +92,7 @@ class DIYTAM_Display extends DIYTAM_Common {
 	 */
 	function markup_terms( $taxonomy, $terms ) {
 		$taxonomy_object = get_taxonomy( $taxonomy );
-		return sprintf( '<span class="diy-tam diy-tam-%s">%s: %s</span>', $taxonomy, ucfirst( $taxonomy_object->name ), self::link_terms( $terms ) );
+		return sprintf( '<span class="diy-tam diy-tam-%s">%s: %s</span>', $taxonomy, apply_filters( "diy_tam_taxonomy_name_{$taxonomy}", ucfirst( $taxonomy_object->name ) ), self::link_terms( $terms ) );
 	}
 
 	/**
@@ -161,4 +170,16 @@ class DIYTAM_Display extends DIYTAM_Common {
 		$option = get_option( self::get_textdomain() );
 		return apply_filters( 'diy_tam_color', ( isset( $option['color'] ) ) ? $option['color'] : false );
 	}
+
+	/**
+	 * Enques the scripts and styles used by the plugin
+	 *
+	 * @since 0.1-alpha
+	 */
+	function enqueue_scripts() {
+		global $wp_scripts;
+		$this->scripts = $wp_scripts;
+	}
+
+
 }

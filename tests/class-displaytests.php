@@ -300,4 +300,59 @@ class DisplayTests extends WP_UnitTestCase {
 		delete_option( $this->display->get_textdomain() );
 		$this->assertNotRegExp( '/color:/' , $this->display->print_css( true ) );
 	}
+
+	/**
+	 * Test that display add font awesome adds the fa script
+	 */
+	function test_display_adds_font_awesome() {
+
+	}
+
+	/**
+	 * Test that enqueue script is added
+	 */
+	function test_display_adds_action_to_enqueue_scripts() {
+	 	$this->assertEquals( 10, has_action( 'wp_print_scripts', array( $this->display, 'enqueue_scripts' ) ) );
+	}
+	/**
+	 * Test that taxonomy names are over-ridable by filter
+	 */
+	function test_display_taxonomy_names_filterable() {
+	 	$test_post_content = 'example with terms.';
+		$post = wp_insert_post( array(
+			'post_title'    => 'test post with terms',
+			'post_status'   => 'publish',
+			'post_type'     => 'post',
+			'post_content'  => $test_post_content,
+		) );
+
+		wp_set_object_terms( $post, 'easy', 'difficulty' );
+		wp_set_object_terms( $post, '2 hours', 'time' );
+		wp_set_object_terms( $post, array( 'popsicle sticks', 'glue' ), 'materials' );
+
+		$this->go_to( get_permalink( $post ) );
+
+		// Test the Difficulty taxonomy.
+		add_filter( 'diy_tam_taxonomy_name_difficulty', function( $taxonomy_name ) {
+			return 'Difficulty rating';
+		}, 10 );
+		$term_markup_after = $this->display->list_terms( 'difficulty' );
+		$this->assertEquals( '<span class="diy-tam diy-tam-difficulty">Difficulty rating: easy</span>', $term_markup_after );
+
+		// Test the Time taxonomy.
+		add_filter( 'diy_tam_taxonomy_name_time', function( $taxonomy_name ) {
+			return 'Time to complete';
+		}, 10 );
+		$term_markup_after = $this->display->list_terms( 'time' );
+		$this->assertEquals( '<span class="diy-tam diy-tam-time">Time to complete: 2 hours</span>', $term_markup_after );
+
+		// Test the Materials taxonomy.
+		add_filter( 'diy_tam_taxonomy_name_materials', function( $taxonomy_name ) {
+			return 'Materials Required';
+		}, 10 );
+		$term_markup_after = $this->display->list_terms( 'materials' );
+		$this->assertEquals( '<span class="diy-tam diy-tam-materials">Materials Required: glue, popsicle sticks</span>', $term_markup_after );
+	}
+
+
 }
