@@ -29,5 +29,8 @@ A number of filters exist to make customizing the display of the taxonomy data e
 * `diy_tam_taxonomy_name_difficulty` a filter to over-ride the "Difficulty" Taxonomy name (frontend only)
 * `diy_tam_taxonomy_name_time` a filter to over-ride the "Time" Taxonomy name (frontend only)
 * `diy_tam_taxonomy_name_materials` a filter to over-ride the "Materials" Taxonomy name (frontend only)
+* * `diy_tam_taxonomy_classes_difficulty` a filter to over-ride the "Difficulty" Taxonomy name (frontend only)
+* `diy_tam_taxonomy_classes_time` a filter to over-ride the "Time" Taxonomy name (frontend only)
+* `diy_tam_taxonomy_classes_materials` a filter to over-ride the "Materials" Taxonomy name (frontend only)
 
 

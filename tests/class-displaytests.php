@@ -354,5 +354,63 @@ class DisplayTests extends WP_UnitTestCase {
 		$this->assertEquals( '<span class="diy-tam diy-tam-materials">Materials Required: glue, popsicle sticks</span>', $term_markup_after );
 	}
 
+	/**
+	 * Test that taxonomy classes are over-ridable by filter
+	 */
+	function test_display_taxonomy_classes_filterable() {
+	 	$test_post_content = 'example with terms.';
+		$post = wp_insert_post( array(
+			'post_title'    => 'test post with terms',
+			'post_status'   => 'publish',
+			'post_type'     => 'post',
+			'post_content'  => $test_post_content,
+		) );
+
+		wp_set_object_terms( $post, 'easy', 'difficulty' );
+		wp_set_object_terms( $post, '2 hours', 'time' );
+		wp_set_object_terms( $post, array( 'popsicle sticks', 'glue' ), 'materials' );
+
+		$this->go_to( get_permalink( $post ) );
+
+		// Test the Difficulty taxonomy.
+		add_filter( 'diy_tam_taxonomy_classes_difficulty', function( $classes ) {
+			$classes[] = 'test-for-difficulty';
+			return $classes;
+		}, 10 );
+		$term_markup_after = $this->display->list_terms( 'difficulty' );
+		$this->assertEquals( '<span class="diy-tam diy-tam-difficulty test-for-difficulty">Difficulty: easy</span>', $term_markup_after );
+
+		// Test the Time taxonomy.
+		add_filter( 'diy_tam_taxonomy_classes_time', function( $classes ) {
+			$classes[] = 'test-for-time';
+			return $classes;
+		}, 10 );
+		$term_markup_after = $this->display->list_terms( 'time' );
+		$this->assertEquals( '<span class="diy-tam diy-tam-time test-for-time">Time: 2 hours</span>', $term_markup_after );
+
+		// Test the Materials taxonomy.
+		add_filter( 'diy_tam_taxonomy_classes_materials', function( $classes ) {
+			$classes[] = 'test-for-materials';
+			return $classes;
+		}, 10 );
+		$term_markup_after = $this->display->list_terms( 'materials' );
+		$this->assertEquals( '<span class="diy-tam diy-tam-materials test-for-materials">Materials: glue, popsicle sticks</span>', $term_markup_after );
+	}
+
+	/**
+	 * Tests that the display default classes returns the correct classes for taxonomy
+	 */
+	function test_display_classes_have_default_classes() {
+	 	$this->assertEquals( array( 'diy-tam', 'diy-tam-difficulty' ), $this->display->default_classes( array(), 'difficulty' ) );
+	}
+
+	 /**
+	  * Teststhat the default classes filters are added
+	  */
+	function test_default_classes_get_added() {
+	 	foreach ( $this->display->get_taxonomy_list() as $taxonomy ) {
+			$this->assertEquals( 10, has_filter( "diy_tam_taxonomy_classes_{$taxonomy}", array( $this->display, 'default_classes' ) ) );
+		}
+	}
 
 }
