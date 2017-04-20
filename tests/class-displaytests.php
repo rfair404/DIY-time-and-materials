@@ -300,4 +300,13 @@ class DisplayTests extends WP_UnitTestCase {
 		delete_option( $this->display->get_textdomain() );
 		$this->assertNotRegExp( '/color:/' , $this->display->print_css( true ) );
 	}
+	
+	/**
+	 * Test is Font Awesome is enqueued if option set
+	 */
+	 function test_font_awesome_support_if_option_set() {
+	 	global $wp_scripts;
+	 	echo var_dump( $wp_scripts );
+	 	
+	 }
 }
