@@ -6,8 +6,7 @@
  * @package DIY-time-and-materials
  */
 
-// if ( ! defined( ABSPATH ) ) { die(); }
-
+if ( ! defined( ABSPATH ) ) { exit(); }
 /**
  * Front End Functionality.
  *
