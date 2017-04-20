@@ -85,6 +85,9 @@ class CommonTests extends WP_UnitTestCase {
 	function test_get_settings_returns_settings_array() {
 		update_option( $this->common->get_textdomain(), array() );
 		$this->assertTrue( is_array( get_option( $this->common->get_textdomain() ) ) );
+		
+		update_option( $this->common->get_textdomain(), array('test' => 'test' ) );
+		$this->assertEquals( array( 'test' => 'test' ), get_option( $this->common->get_textdomain() ) );
 	}
 	
 	

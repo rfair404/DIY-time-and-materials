@@ -41,6 +41,15 @@ class DIYTAM_Common extends DIYTAM_Base {
 	}
 	
 	/**
+	 * Returns the settings created in the plugin.
+	 *
+	 * @since 0.1-alpha
+	 */
+	public function get_settings() {
+		return get_option( self::get_textdomain() );
+	}
+	
+	/**
 	 * The difficulty_init function registers the difficult taxonomy within WordPress.
 	 *
 	 * @since 0.1-alpha

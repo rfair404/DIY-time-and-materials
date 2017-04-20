@@ -78,8 +78,9 @@ class DIYTAM_Admin extends DIYTAM_Common {
      * @since 0.1-alpha
      */
     function display_fields_callback() {
-        printf( '<input name="%s[display_settings][color]" type="color" value="%s" />', $this->get_textdomain(), ( isset( $settings['color'] ) ) ? $settings['color'] : '#4433dd' );
-        printf( '<label>%s</label><br />' , __('Button Background Color', $this->get_textdomain() ) );
+        $settings = self::get_settings();
+        printf( '<input name="%s[color]" type="color" value="%s" />', self::get_textdomain(), ( isset( $settings['color'] ) ) ? $settings['color'] : '#4433dd' );
+        printf( '<label>%s</label><br />' , __('Button Background Color', self::get_textdomain() ) );
     }
     
     /** 
@@ -89,7 +90,6 @@ class DIYTAM_Admin extends DIYTAM_Common {
      */
     function validate_settings( $settings = array() ) {
         $valid = array();
-        
         // validate each setting!
         if( isset( $settings['color']) ){
             $valid['color'] = $settings['color'];
