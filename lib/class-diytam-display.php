@@ -14,6 +14,7 @@
  * @since 0.1-alpha
  */
 class DIYTAM_Display extends DIYTAM_Common {
+
 	/**
 	 * Initializes the other class functions
 	 * Adds actions and filters to WordPress api.
@@ -21,8 +22,23 @@ class DIYTAM_Display extends DIYTAM_Common {
 	 * @since 0.1-alpha
 	 */
 	public function init() {
+		$options = self::get_settings();
+
 		add_filter( 'the_content', array( $this, 'display_content' ), 10 );
 		add_action( 'wp_print_scripts', array( $this, 'print_css' ), 10 );
+
+		// Only enqueue scripts if Font Awesome enabled.
+		if ( isset( $options['enable_font_awesome'] ) && true === $options['enable_font_awesome'] ) {
+			add_action( 'wp_print_scripts', array( $this, 'enqueue_scripts' ), 10 );
+		}
+
+		// Add a filter for each taxonomy.
+		foreach ( self::get_taxonomy_list() as $taxonomy ) {
+			add_filter( "diy_tam_taxonomy_classes_{$taxonomy}", array( $this, 'default_classes' ), 10, 2 );
+			if ( isset( $options['enable_font_awesome'] ) && true === $options['enable_font_awesome'] ) {
+				add_filter( "diy_tam_taxonomy_before_{$taxonomy}", array( $this, 'font_awesome_icons' ), 10, 2 );
+			}
+		}
 	}
 
 	/**
@@ -85,7 +101,44 @@ class DIYTAM_Display extends DIYTAM_Common {
 	 */
 	function markup_terms( $taxonomy, $terms ) {
 		$taxonomy_object = get_taxonomy( $taxonomy );
-		return sprintf( '<span class="diy-tam diy-tam-%s">%s: %s</span>', $taxonomy, ucfirst( $taxonomy_object->name ), self::link_terms( $terms ) );
+		return sprintf( '<span class="%s">%s%s: %s</span>', implode( ' ', apply_filters( "diy_tam_taxonomy_classes_{$taxonomy}", array(), $taxonomy ) ), apply_filters( "diy_tam_taxonomy_before_{$taxonomy}", '', $taxonomy ), apply_filters( "diy_tam_taxonomy_name_{$taxonomy}", ucfirst( $taxonomy_object->name ) ), self::link_terms( $terms ) );
+	}
+
+	/**
+	 * The Default classes built into to the taxonomy
+	 *
+	 * @since 0.1-alpha
+	 * @param array  $classes the incoming classes to append.
+	 * @param string $taxonomy the taxonomy to filter.
+	 * @return array $classes the filtered classes.
+	 */
+	function default_classes( $classes = array(), $taxonomy = false ) {
+	 	$classes = array( 'diy-tam', 'diy-tam-' . $taxonomy );
+	 	return $classes;
+	}
+
+	/**
+	 * The Font Awesome classes built into to the taxonomy
+	 *
+	 * @since 0.1-alpha
+	 * @param string $markup the incoming markup if any.
+	 * @param string $taxonomy the taxonomy to filter.
+	 * @return array $classes the filtered classes.
+	 */
+	function font_awesome_icons( $markup = '', $taxonomy = false ) {
+
+	 	switch ( $taxonomy ) {
+	 		case 'difficulty':
+	 			$markup .= '<i class="fa fa-line-chart"></i>';
+	 			break;
+	 		case 'time':
+	 			$markup .= '<i class="fa fa-clock-o"></i>';
+	 			break;
+	 		case 'materials':
+	 			$markup .= '<i class="fa fa-list"></i>';
+	 			break;
+	 	}
+	 	return $markup;
 	}
 
 	/**
@@ -146,7 +199,9 @@ class DIYTAM_Display extends DIYTAM_Common {
 		$inline_css .= 'margin-right:1em;';
 
 		$inline_css .= '}';
-
+		$inline_css .= '.diy-tam iwp{';
+		$inline_css .= 'margin-right:0.5em;';
+		$inline_css .= '}';
 		if ( true === $return ) {
 			return sprintf( '<style type="text/css">%s</style>', esc_html( $inline_css ) );
 		} else {
@@ -162,5 +217,14 @@ class DIYTAM_Display extends DIYTAM_Common {
 	function get_color() {
 		$option = get_option( self::get_textdomain() );
 		return apply_filters( 'diy_tam_color', ( isset( $option['color'] ) ) ? $option['color'] : false );
+	}
+
+	/**
+	 * Enques the scripts and styles used by the plugin
+	 *
+	 * @since 0.1-alpha
+	 */
+	function enqueue_scripts() {
+		wp_enqueue_style( 'font-awesome','https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', array(), 'screen' );
 	}
 }

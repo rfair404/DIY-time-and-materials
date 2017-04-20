@@ -57,7 +57,7 @@ class DIYTAM_Common extends DIYTAM_Base {
 	 * @since 0.1-alpha
 	 */
 	public function difficulty_init() {
-		register_taxonomy( 'difficulty', array( 'post' ), array(
+		register_taxonomy( 'difficulty', apply_filters( 'diy_tam_project_post_type', array( 'post' ) ), array(
 			'hierarchical'      => false,
 			'public'            => true,
 			'show_in_nav_menus' => true,
@@ -101,7 +101,7 @@ class DIYTAM_Common extends DIYTAM_Base {
 	 @since 0.1-alpha
 	 */
 	public function materials_init() {
-		register_taxonomy( 'materials', array( 'post' ), array(
+		register_taxonomy( 'materials', apply_filters( 'diy_tam_project_post_type', array( 'post' ) ), array(
 			'hierarchical'      => false,
 			'public'            => true,
 			'show_in_nav_menus' => true,
@@ -146,7 +146,7 @@ class DIYTAM_Common extends DIYTAM_Base {
 	 @since 0.1-alpha
 	 */
 	public function time_init() {
-		register_taxonomy( 'time', array( 'post' ), array(
+		register_taxonomy( 'time', apply_filters( 'diy_tam_project_post_type', array( 'post' ) ), array(
 			'hierarchical'      => false,
 			'public'            => true,
 			'show_in_nav_menus' => true,

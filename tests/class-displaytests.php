@@ -281,7 +281,7 @@ class DisplayTests extends WP_UnitTestCase {
 	 * Tests if the css custom color is over-ridable by filter
 	 */
 	function test_display_print_css_override_color_with_filter() {
-		update_option( $this->display->get_textdomain(), array( 'color', '#f5f5f5' ) );
+		update_option( $this->base->textdomain, array( 'color', '#f5f5f5' ) );
 		add_filter( 'diy_tam_color', function() {
 			return '#444444';
 		}, 10);
@@ -292,7 +292,7 @@ class DisplayTests extends WP_UnitTestCase {
 	 * Tests if the css custom color is set by option
 	 */
 	function test_display_print_css_includes_color_if_set() {
-		update_option( $this->display->get_textdomain(), array(
+		update_option( $this->base->textdomain, array(
 			'color' => '#f5f5f5',
 		) );
 		$this->assertRegExp( '/color:#f5f5f5;/' , $this->display->print_css( true ) );
@@ -300,6 +300,185 @@ class DisplayTests extends WP_UnitTestCase {
 		delete_option( $this->display->get_textdomain() );
 		$this->assertNotRegExp( '/color:/' , $this->display->print_css( true ) );
 	}
+<<<<<<< HEAD
+
+	/**
+	 * Test that display add font awesome adds the fa script
+	 */
+	function test_display_adds_font_awesome() {
+		update_option( $this->base->textdomain, array(
+			'enable_font_awesome' => true,
+		) );
+		$this->display->init();
+
+		/*
+		 I couldn't figure out a cleverway to check if font awesome is enqueued.
+         * Thought about using wp_style_is( 'font-awesome' ) in an assertion,
+		 * but ran out of time...
+		 */
+	}
+
+	/**
+	 * Test that enqueue script is added if enabled
+	 */
+	function test_display_adds_action_to_enqueue_scripts_if_enabled() {
+		update_option( $this->base->textdomain, array(
+			'enable_font_awesome' => true,
+		) );
+		$this->display->init();
+
+	 	$this->assertEquals( 10, has_action( 'wp_print_scripts', array( $this->display, 'enqueue_scripts' ) ) );
+	}
+	/**
+	 * Test that taxonomy names are over-ridable by filter
+	 */
+	function test_display_taxonomy_names_filterable() {
+	 	$test_post_content = 'example with terms.';
+		$post = wp_insert_post( array(
+			'post_title'    => 'test post with terms',
+			'post_status'   => 'publish',
+			'post_type'     => 'post',
+			'post_content'  => $test_post_content,
+		) );
+
+		wp_set_object_terms( $post, 'easy', 'difficulty' );
+		wp_set_object_terms( $post, '2 hours', 'time' );
+		wp_set_object_terms( $post, array( 'popsicle sticks', 'glue' ), 'materials' );
+
+		$this->go_to( get_permalink( $post ) );
+
+		// Test the Difficulty taxonomy.
+		add_filter( 'diy_tam_taxonomy_name_difficulty', function( $taxonomy_name ) {
+			return 'Difficulty rating';
+		}, 10 );
+		$term_markup_after = $this->display->list_terms( 'difficulty' );
+		$this->assertEquals( '<span class="diy-tam diy-tam-difficulty">Difficulty rating: easy</span>', $term_markup_after );
+
+		// Test the Time taxonomy.
+		add_filter( 'diy_tam_taxonomy_name_time', function( $taxonomy_name ) {
+			return 'Time to complete';
+		}, 10 );
+		$term_markup_after = $this->display->list_terms( 'time' );
+		$this->assertEquals( '<span class="diy-tam diy-tam-time">Time to complete: 2 hours</span>', $term_markup_after );
+
+		// Test the Materials taxonomy.
+		add_filter( 'diy_tam_taxonomy_name_materials', function( $taxonomy_name ) {
+			return 'Materials Required';
+		}, 10 );
+		$term_markup_after = $this->display->list_terms( 'materials' );
+		$this->assertEquals( '<span class="diy-tam diy-tam-materials">Materials Required: glue, popsicle sticks</span>', $term_markup_after );
+	}
+
+	/**
+	 * Test that taxonomy classes are over-ridable by filter
+	 */
+	function test_display_taxonomy_classes_filterable() {
+	 	$test_post_content = 'example with terms.';
+		$post = wp_insert_post( array(
+			'post_title'    => 'test post with terms',
+			'post_status'   => 'publish',
+			'post_type'     => 'post',
+			'post_content'  => $test_post_content,
+		) );
+
+		wp_set_object_terms( $post, 'easy', 'difficulty' );
+		wp_set_object_terms( $post, '2 hours', 'time' );
+		wp_set_object_terms( $post, array( 'popsicle sticks', 'glue' ), 'materials' );
+
+		$this->go_to( get_permalink( $post ) );
+
+		// Test the Difficulty taxonomy.
+		add_filter( 'diy_tam_taxonomy_classes_difficulty', function( $classes ) {
+			$classes[] = 'test-for-difficulty';
+			return $classes;
+		}, 10 );
+		$term_markup_after = $this->display->list_terms( 'difficulty' );
+		$this->assertEquals( '<span class="diy-tam diy-tam-difficulty test-for-difficulty">Difficulty: easy</span>', $term_markup_after );
+
+		// Test the Time taxonomy.
+		add_filter( 'diy_tam_taxonomy_classes_time', function( $classes ) {
+			$classes[] = 'test-for-time';
+			return $classes;
+		}, 10 );
+		$term_markup_after = $this->display->list_terms( 'time' );
+		$this->assertEquals( '<span class="diy-tam diy-tam-time test-for-time">Time: 2 hours</span>', $term_markup_after );
+
+		// Test the Materials taxonomy.
+		add_filter( 'diy_tam_taxonomy_classes_materials', function( $classes ) {
+			$classes[] = 'test-for-materials';
+			return $classes;
+		}, 10 );
+		$term_markup_after = $this->display->list_terms( 'materials' );
+		$this->assertEquals( '<span class="diy-tam diy-tam-materials test-for-materials">Materials: glue, popsicle sticks</span>', $term_markup_after );
+	}
+
+	/**
+	 * Tests that the display default classes returns the correct classes for taxonomy
+	 */
+	function test_display_classes_have_default_classes() {
+	 	$this->assertEquals( array( 'diy-tam', 'diy-tam-difficulty' ), $this->display->default_classes( array(), 'difficulty' ) );
+	}
+
+	 /**
+	  * Teststhat the default classes filters are added
+	  */
+	function test_default_classes_get_added() {
+	 	foreach ( $this->display->get_taxonomy_list() as $taxonomy ) {
+			$this->assertEquals( 10, has_filter( "diy_tam_taxonomy_classes_{$taxonomy}", array( $this->display, 'default_classes' ) ) );
+		}
+	}
+
+	/**
+	 * Tests that the font awesome classes filters are added if enabled
+	 */
+	function test_font_awesome_filters_get_added() {
+		update_option( $this->base->textdomain, array(
+			'enable_font_awesome' => true,
+		) );
+	 	$this->display->init();
+	 	foreach ( $this->display->get_taxonomy_list() as $taxonomy ) {
+			$this->assertEquals( 10, has_filter( "diy_tam_taxonomy_before_{$taxonomy}", array( $this->display, 'font_awesome_icons' ) ) );
+		}
+	}
+
+	/**
+	 * Tests that the font awesome classes filters are not added if disabled
+	 */
+	function test_font_awesome_filters_not_added() {
+		update_option( $this->base->textdomain, array(
+			'enable_font_awesome' => false,
+		) );
+	 	$this->display->init();
+	 	foreach ( $this->display->get_taxonomy_list() as $taxonomy ) {
+			$this->assertFalse( has_filter( "diy_tam_taxonomy_classes_{$taxonomy}", array( $this->display, 'font_awesome_classes' ) ) );
+		}
+	}
+
+	/**
+	 * Tests filters allow adding markup before
+	 */
+	function test_can_inject_html_before_taxonomy_name() {
+		$test_post_content = 'example with terms.';
+		$post = wp_insert_post( array(
+			'post_title'    => 'test post with terms',
+			'post_status'   => 'publish',
+			'post_type'     => 'post',
+			'post_content'  => $test_post_content,
+		) );
+
+		wp_set_object_terms( $post, 'easy', 'difficulty' );
+		$this->go_to( get_permalink( $post ) );
+
+		// Test the Difficulty taxonomy.
+		add_filter( 'diy_tam_taxonomy_before_difficulty', function( $html ) {
+			$html .= '<i class="fa-test"></i>';
+			return $html;
+		}, 10 );
+		$term_markup_after = $this->display->list_terms( 'difficulty' );
+		$this->assertEquals( '<span class="diy-tam diy-tam-difficulty"><i class="fa-test"></i>Difficulty: easy</span>', $term_markup_after );
+
+	}
+=======
 	
 	/**
 	 * Test is Font Awesome is enqueued if option set
@@ -309,4 +488,5 @@ class DisplayTests extends WP_UnitTestCase {
 	 	echo var_dump( $wp_scripts );
 	 	
 	 }
+>>>>>>> master
 }
