@@ -3,9 +3,6 @@ A WordPress plugin for displaying time, materials and difficulty of a project (p
 
 This is an example project that I wrote as part of an interview process. It is intended for demonstration purposes only. While you're free to use this code in any way you wish, there is absolutley no warranty or support.
 
-### How it works
-Simply adds three new custom taxonomies (registered to posts by default) that the post author can configure while editing the post.
-
 ### Requirements
 Required WordPress Version 4.7.0 or later
 Requires PHP Version 5.3 or later
@@ -39,5 +36,16 @@ The plugin provides two options. An administrator can edit them by going to Sett
 
 ### Changelog
 
+* `diy_tam_taxonomy_name_%TAXONOMY%` a filter to over-ride the taxonomy name on the frontend.
+* `diy_tam_taxonomy_classes_%TAXONOMY%` a filter to over-ride the css classes output wrapping the taxonomy name on the frontend.
+* `diy_tam_taxonomy_before_%TAXONOMY%` a filter to append markup before the taxonomy name on the frontend.
+
+### Options
+The plugin provides two options. An administrator can edit them by going to Settings > DIY Time and Materials. _Color_ sets the color of the taxonomy names. _Enable Font Awesome_ turns on (or off) the icon output.
+
+### Changelog
+
+### 0.1
+The cleaned up version of the [0.1](https://github.com/rfair404/DIY-time-and-materials/releases/tag/0.1) release.
 #### 0.1-alpha
 The initial release
