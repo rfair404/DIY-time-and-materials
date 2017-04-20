@@ -6,7 +6,11 @@
  * @package DIY-time-and-materials
  */
 
+<<<<<<< HEAD
 // if ( ! defined( ABSPATH ) ) { die(); }
+=======
+if ( ! defined( 'ABSPATH' ) ) { exit(); }
+>>>>>>> reset-01
 
 /**
  * The admin class, contains admin specific functions.
