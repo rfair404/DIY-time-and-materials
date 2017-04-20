@@ -31,9 +31,8 @@ class DIYTAM_Admin extends DIYTAM_Common {
 	function register_settings() {
 		$settings = register_setting( $this->get_textdomain(), $this->get_textdomain(), array( $this, 'validate_settings' ) );
 
-		add_settings_section( $this->get_textdomain() . '_main' ,          __( 'Adjust the time and materials appearance to your liking by configuring the options below.', 'diy-time-and-material' ), array( $this, 'setting_section_callback' ) , $this->get_textdomain() );
-		add_settings_field( $this->get_textdomain() . '_display_settings', __( 'Set the color of the text.',                           'diy-time-and-material' ),  array( $this, 'display_fields_callback' ) ,    $this->get_textdomain() ,  $this->get_textdomain() . '_main' );
-
+		add_settings_section( $this->get_textdomain() . '_main' ,          __( 'Adjust the time and materials appearance to your liking by configuring the options below.', 'diy-time-and-materials' ), array( $this, 'setting_section_callback' ) , $this->get_textdomain() );
+		add_settings_field( $this->get_textdomain() . '_display_settings', __( 'Set the color of the text.',                           'diy-time-and-materials' ),  array( $this, 'display_fields_callback' ) ,    $this->get_textdomain() ,  $this->get_textdomain() . '_main' );
 	}
 
 	/**
@@ -43,7 +42,7 @@ class DIYTAM_Admin extends DIYTAM_Common {
 	 * @todo see if you can find a way to include unit test coverage here.
 	 */
 	function register_menu() {
-		add_options_page( __( 'DIY Time and Materials', 'diy-time-and-material' ), __( 'DIY Time and Materials', 'diy-time-and-material' ), 'manage-options', $this->get_textdomain(), array( $this, 'page_display' ) );
+		add_options_page( __( 'DIY Time and Materials', 'diy-time-and-materials' ), __( 'DIY Time and Materials', 'diy-time-and-materials' ), 'manage-options', $this->get_textdomain(), array( $this, 'page_display' ) );
 	}
 
 	/**
@@ -53,8 +52,8 @@ class DIYTAM_Admin extends DIYTAM_Common {
 	 */
 	function page_display() {
 			?><div class="wrap">
-			<h1><?php esc_html_e( 'DIY Time and Materials Options', 'diy-time-and-material' ); ?></h1>
-			<form method="post" action="options.php" id="<?php esc_attr_e( 'diy-time-and-material' ); ?>">
+			<h1><?php esc_html_e( 'DIY Time and Materials Options', 'diy-time-and-materials' ); ?></h1>
+			<form method="post" action="options.php" id="diy-time-and-material-form">
 			<?php
 				settings_fields( $this->get_textdomain() );
 				do_settings_sections( $this->get_textdomain() );
@@ -79,8 +78,9 @@ class DIYTAM_Admin extends DIYTAM_Common {
 	 */
 	function display_fields_callback() {
 		$settings = self::get_settings();
-		printf( '<input name="%s[color]" type="color" value="%s" />', 'diy-time-and-material', ( isset( $settings['color'] ) ) ? esc_attr( $settings['color'] ) : '#4433dd' );
-		printf( '<label>%s</label><br />' , esc_attr( __( 'Button Background Color', 'diy-time-and-material' ) ) );
+		
+		printf( '<input name="%s[color]" type="color" value="%s" />', 'diy-time-and-materials', ( isset( $settings['color'] ) ) ? esc_attr( $settings['color'] ) : '#4433dd' );
+		printf( '<label>%s</label><br />' , esc_attr( __( 'Text Color', 'diy-time-and-materials' ) ) );
 	}
 
 	/**
@@ -91,6 +91,7 @@ class DIYTAM_Admin extends DIYTAM_Common {
 	 */
 	function validate_settings( $settings = array() ) {
 		$valid = array();
+
 		// validate each setting!
 		if ( isset( $settings['color'] ) ) {
 			$valid['color'] = $settings['color'];
