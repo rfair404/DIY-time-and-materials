@@ -1,7 +1,10 @@
 # DIY-time-and-materials
-A WordPress plugin for displaying time, materials and for DIY bloggers.
+A WordPress plugin for displaying time, materials and difficulty of a project (post) for DIY bloggers.
 
 This is an example project that I wrote as part of an interview process. It is intended for demonstration purposes only. While you're free to use this code in any way you wish, there is absolutley no warranty or support.
+
+### How it works
+Simply adds three new custom taxonomies (registered to posts by default) that the post author can configure while editing the post.
 
 ### Requirements
 Required WordPress Version 4.7.0 or later
@@ -26,13 +29,15 @@ phpunit
 ### Filters
 A number of filters exist to make customizing the display of the taxonomy data easy.
 * `diy_tam_color` a filter to over-ride the color of the taxonomy terms.
-* `diy_tam_taxonomy_name_difficulty` a filter to over-ride the "Difficulty" Taxonomy name (frontend only)
-* `diy_tam_taxonomy_name_time` a filter to over-ride the "Time" Taxonomy name (frontend only)
-* `diy_tam_taxonomy_name_materials` a filter to over-ride the "Materials" Taxonomy name (frontend only)
-* * `diy_tam_taxonomy_classes_difficulty` a filter to over-ride the "Difficulty" Taxonomy name (frontend only)
-* `diy_tam_taxonomy_classes_time` a filter to over-ride the "Time" Taxonomy name (frontend only)
-* `diy_tam_taxonomy_classes_materials` a filter to over-ride the "Materials" Taxonomy name (frontend only)
+* `diy_tam_project_post_type` a filter to over-ride the post type used to the taxonomies, allowing developers to customize the post type.
+* `diy_tam_taxonomy_name_%TAXONOMY%` a filter to over-ride the taxonomy name on the frontend.
+* `diy_tam_taxonomy_classes_%TAXONOMY%` a filter to over-ride the css classes output wrapping the taxonomy name on the frontend.
+* `diy_tam_taxonomy_before_%TAXONOMY%` a filter to append markup before the taxonomy name on the frontend.
 
-* diy_tam_taxonomy_before_difficulty
-* diy_tam_taxonomy_before_after
+### Options
+The plugin provides two options. An administrator can edit them by going to Settings > DIY Time and Materials. _Color_ sets the color of the taxonomy names. _Enable Font Awesome_ turns on (or off) the icon output.
 
+### Changelog
+
+#### 0.1-alpha
+The initial release

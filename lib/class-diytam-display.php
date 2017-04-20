@@ -197,7 +197,7 @@ class DIYTAM_Display extends DIYTAM_Common {
 		$inline_css .= 'margin-right:1em;';
 
 		$inline_css .= '}';
-		$inline_css .= '.diy-tam i{';
+		$inline_css .= '.diy-tam iwp{';
 		$inline_css .= 'margin-right:0.5em;';
 		$inline_css .= '}';
 		if ( true === $return ) {
