@@ -76,4 +76,16 @@ class CommonTests extends WP_UnitTestCase {
 	 	$this->assertTrue( in_array( 'time', $taxonomy_list, true ) );
 	 	$this->assertTrue( in_array( 'materials', $taxonomy_list, true ) );
 	}
+	
+	/**
+	 * Returns the options created in the plugin.
+	 *
+	 * @since 0.1-alpha
+	 */
+	function test_get_settings_returns_settings_array() {
+		update_option( $this->common->get_textdomain(), array() );
+		$this->assertTrue( is_array( get_option( $this->common->get_textdomain() ) ) );
+	}
+	
+	
 }

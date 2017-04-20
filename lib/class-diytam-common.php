@@ -39,7 +39,7 @@ class DIYTAM_Common extends DIYTAM_Base {
 	public function get_taxonomy_list() {
 		return $this->taxonomies;
 	}
-
+	
 	/**
 	 * The difficulty_init function registers the difficult taxonomy within WordPress.
 	 *
