@@ -33,4 +33,6 @@ A number of filters exist to make customizing the display of the taxonomy data e
 * `diy_tam_taxonomy_classes_time` a filter to over-ride the "Time" Taxonomy name (frontend only)
 * `diy_tam_taxonomy_classes_materials` a filter to over-ride the "Materials" Taxonomy name (frontend only)
 
+* diy_tam_taxonomy_before_difficulty
+* diy_tam_taxonomy_before_after
 

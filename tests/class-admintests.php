@@ -108,10 +108,11 @@ class AdminTests extends WP_UnitTestCase {
 		$this->assertRegExp( '/Adjust the time and materials appearance to your liking by configuring the options below./' , $out );
 		$this->assertRegExp( '/<\/h2>/' , $out );
 	}
+
 	/**
-	 * Check that the settings sectionhas fields
+	 * Check that the settings section has color field
 	 */
-	function test_setting_sections_has_fields() {
+	function test_setting_sections_has_color_field() {
 		$section_html = ob_start();
 		do_settings_sections( 'diy-time-and-materials' );
 		$out = ob_get_clean();
@@ -121,6 +122,18 @@ class AdminTests extends WP_UnitTestCase {
 		$this->assertRegExp( '/<\/th>/' , $out );
 	}
 
+	/**
+	 * Check that the settings section has font awesome field
+	 */
+	function test_setting_sections_has_fa_field() {
+		$section_html = ob_start();
+		do_settings_sections( 'diy-time-and-materials' );
+		$out = ob_get_clean();
+
+		$this->assertRegExp( '/<th scope="row">/' , $out );
+		$this->assertRegExp( '/Check to enable Font Awesome./' , $out );
+		$this->assertRegExp( '/<\/th>/' , $out );
+	}
 	/**
 	 * Test the validation when invalid
 	 */
@@ -139,5 +152,27 @@ class AdminTests extends WP_UnitTestCase {
 			'color' => 'blue',
 		);
 		$this->assertArrayHasKey( 'color', $this->admin->validate_settings( $test ) );
+	}
+
+	/**
+	 * Test the validation when font awesome set
+	 */
+	function test_admin_validation_returns_color_array_when_font_awesome_set() {
+		$test = array(
+			'enable_font_awesome' => true,
+		);
+		$this->assertArrayHasKey( 'enable_font_awesome', $this->admin->validate_settings( $test ) );
+	}
+
+	/**
+	 * Test the validation when color and font awesome set
+	 */
+	function test_admin_validation_returns_color_array_when_color_and_font_awesome_set() {
+		$test = array(
+			'color' => 'blue',
+			'enable_font_awesome' => true,
+		);
+		$this->assertArrayHasKey( 'color', $this->admin->validate_settings( $test ) );
+		$this->assertArrayHasKey( 'enable_font_awesome', $this->admin->validate_settings( $test ) );
 	}
 }

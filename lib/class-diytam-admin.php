@@ -35,6 +35,8 @@ class DIYTAM_Admin extends DIYTAM_Common {
 
 		add_settings_section( $this->get_textdomain() . '_main' ,          __( 'Adjust the time and materials appearance to your liking by configuring the options below.', 'diy-time-and-materials' ), array( $this, 'setting_section_callback' ) , $this->get_textdomain() );
 		add_settings_field( $this->get_textdomain() . '_display_settings', __( 'Set the color of the text.',                           'diy-time-and-materials' ),  array( $this, 'display_fields_callback' ) ,    $this->get_textdomain() ,  $this->get_textdomain() . '_main' );
+		add_settings_field( $this->get_textdomain() . '_font_awesome_settings', __( 'Enable or disable Font Awesome.',                           'diy-time-and-materials' ),  array( $this, 'font_awesome_fields_callback' ) ,    $this->get_textdomain() ,  $this->get_textdomain() . '_main' );
+
 	}
 
 	/**
@@ -83,6 +85,20 @@ class DIYTAM_Admin extends DIYTAM_Common {
 
 		printf( '<input name="%s[color]" type="color" value="%s" />', 'diy-time-and-materials', ( isset( $settings['color'] ) ) ? esc_attr( $settings['color'] ) : '#4433dd' );
 		printf( '<label>%s</label><br />' , esc_attr( __( 'Text Color', 'diy-time-and-materials' ) ) );
+
+	}
+
+	/**
+	 * The font awesome fields callback
+	 *
+	 * @since 0.1-alpha
+	 */
+	function font_awesome_fields_callback() {
+	 	$settings = self::get_settings();
+
+	 	printf( '<input name="%s[enable_font_awesome]" type="checkbox" %s />', 'diy-time-and-materials', checked( isset( $settings['enable_font_awesome'] ) && true === $settings['enable_font_awesome']  ,true, false ) );
+		printf( '<label>%s</label><br />' , esc_attr( __( 'Check to enable Font Awesome', 'diy-time-and-materials' ) ) );
+
 	}
 
 	/**
@@ -97,6 +113,10 @@ class DIYTAM_Admin extends DIYTAM_Common {
 		// validate each setting!
 		if ( isset( $settings['color'] ) ) {
 			$valid['color'] = $settings['color'];
+		}
+
+		if ( isset( $settings['enable_font_awesome'] ) ) {
+			$valid['enable_font_awesome'] = (bool) $settings['enable_font_awesome'];
 		}
 
 		return $valid;
