@@ -78,7 +78,7 @@ class DIYTAM_Admin extends DIYTAM_Common {
 	 */
 	function display_fields_callback() {
 		$settings = self::get_settings();
-		
+
 		printf( '<input name="%s[color]" type="color" value="%s" />', 'diy-time-and-materials', ( isset( $settings['color'] ) ) ? esc_attr( $settings['color'] ) : '#4433dd' );
 		printf( '<label>%s</label><br />' , esc_attr( __( 'Text Color', 'diy-time-and-materials' ) ) );
 	}
