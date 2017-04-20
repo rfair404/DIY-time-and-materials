@@ -247,7 +247,7 @@ class DisplayTests extends WP_UnitTestCase {
 	 * Tests if the color filter works
 	 */
 	function test_display_get_color_returns_color_if_set() {
-		update_option( 'diy_tam_color', '#f5f5f5' );
+		update_option( $this->base->textdomain, array( 'color' => '#f5f5f5' ) );
 		$this->assertEquals( '#f5f5f5', $this->display->get_color() );
 	}
 
@@ -255,7 +255,7 @@ class DisplayTests extends WP_UnitTestCase {
 	 * Tests if the css custom color is over-ridable by filter
 	 */
 	function test_display_print_css_override_color_with_filter() {
-		update_option( 'diy_tam_color', '#f5f5f5' );
+		update_option( $this->display->get_textdomain(), array( 'color', '#f5f5f5') );
 		add_filter( 'diy_tam_color', function() {
 			return '#444444';
 		}, 10);
@@ -266,10 +266,10 @@ class DisplayTests extends WP_UnitTestCase {
 	 * Tests if the css custom color is set by option
 	 */
 	function test_display_print_css_includes_color_if_set() {
-		update_option( 'diy_tam_color', '#f5f5f5' );
+		update_option( $this->display->get_textdomain(), array( 'color' => '#f5f5f5' ) );
 		$this->assertRegExp( '/color:#f5f5f5;/' , $this->display->print_css( true ) );
 
-		delete_option( 'diy_tam_color' );
+		delete_option( $this->display->get_textdomain() );
 		$this->assertNotRegExp( '/color:/' , $this->display->print_css( true ) );
 	}
 }

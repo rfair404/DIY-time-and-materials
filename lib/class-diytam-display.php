@@ -154,6 +154,7 @@ class DIYTAM_Display extends DIYTAM_Common {
 	 * @since 0.1-alpha
 	 */
 	function get_color() {
-		return apply_filters( 'diy_tam_color', get_option( 'diy_tam_color' ) );
+		$option = get_option( self::get_textdomain() );
+		return apply_filters( 'diy_tam_color', ( isset( $option['color'] ) ) ? $option['color'] : false );
 	}
 }
