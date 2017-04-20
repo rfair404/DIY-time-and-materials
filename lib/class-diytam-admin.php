@@ -6,6 +6,8 @@
  * @package DIY-time-and-materials
  */
 
+if ( ! defined( ABSPATH ) ) { die(); }
+
 /**
  * The admin class, contains admin specific functions.
  *

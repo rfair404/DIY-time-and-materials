@@ -6,6 +6,8 @@
  * @package DIY-time-and-materials
  */
 
+if ( ! defined( ABSPATH ) ) { die(); }
+
 /**
  * The base class, contains helper functions used everywhere.
  *
