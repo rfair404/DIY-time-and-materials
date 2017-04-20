@@ -199,7 +199,31 @@ class DisplayTests extends WP_UnitTestCase {
 		$this->assertEquals( '<span class="diy-tam diy-tam-materials">Materials: hot glue</span>', $content );
 	}
 
-	// add a test for multiple terms!
+	/**
+	 * Test if multiple termms are output when more than one term is set.
+	 */
+	function test_display_list_terms_prints_spans_for_multiple_terms_if_set() {
+		$post = wp_insert_post( array(
+			'post_title'    => 'test post with more than one term',
+			'post_status'   => 'publish',
+			'post_type'     => 'post',
+			'post_content'  => 'example with more than one term.',
+		) );
+
+		wp_set_object_terms( $post, array( 'moderate', '5+' ), 'difficulty' );
+		wp_set_object_terms( $post, array( '1 day', '4 hours' ), 'time' );
+		wp_set_object_terms( $post, array( 'hammer', 'hot glue' ), 'materials' );
+		$this->go_to( get_permalink( $post ) );
+
+		$content = $this->display->list_terms( 'difficulty' );
+		$this->assertEquals( '<span class="diy-tam diy-tam-difficulty">Difficulty: 5+, moderate</span>', $content );
+
+		$content = $this->display->list_terms( 'time' );
+		$this->assertEquals( '<span class="diy-tam diy-tam-time">Time: 1 day, 4 hours</span>', $content );
+
+		$content = $this->display->list_terms( 'materials' );
+		$this->assertEquals( '<span class="diy-tam diy-tam-materials">Materials: hammer, hot glue</span>', $content );
+	}
 	/**
 	 * Test that the display_terms function returns a list when terms are set
 	 */

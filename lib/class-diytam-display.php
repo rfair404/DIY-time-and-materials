@@ -99,6 +99,10 @@ class DIYTAM_Display extends DIYTAM_Common {
 		if ( 1 === count( $terms ) ) {
 			return $terms[0]->name;
 		}
+
+		if ( is_array( $terms ) ) {
+			return implode( ', ', wp_list_pluck( $terms, 'name' ) );
+		}
 	}
 
 	/**
