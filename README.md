@@ -47,5 +47,6 @@ The plugin provides two options. An administrator can edit them by going to Sett
 
 ### 0.1
 The cleaned up version of the [0.1](https://github.com/rfair404/DIY-time-and-materials/releases/tag/0.1) release.
+
 #### 0.1-alpha
 The initial release
